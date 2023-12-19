@@ -5,15 +5,14 @@
             "label": "C/C++: gcc сборка активного файла",
             "command": "/usr/bin/gcc",
             "args": [
-                "-I/usr/include/mysql",
-                "-L/usr/lib/x86_64-linux-gnu",
-                "-lmysqlclient",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
-                ""
+                "-I/usr/include/mysql",
+                "-L/usr/lib/x86_64-linux-gnu",
+                "-lmysqlclient"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -29,14 +28,15 @@
             "label": "C/C++: g++ сборка активного файла",
             "command": "/usr/bin/g++",
             "args": [
-                "-I/usr/include/mysql",
-                "-L/usr/lib/x86_64-linux-gnu",
-                "-lmysqlclient",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-I/usr/include/mysql",
+                "-L/usr/lib/x86_64-linux-gnu",
+                "-lmysqlclient"
+                
             ],
             "options": {
                 "cwd": "${fileDirname}"

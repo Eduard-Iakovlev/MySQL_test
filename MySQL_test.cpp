@@ -13,7 +13,7 @@ int main() {
 	}
 
 	// Подключаемся к серверу
-	if (!mysql_real_connect(&mysql, "localhost", "root", "root", "testdb", 0, NULL, 0)) {
+	if (!mysql_real_connect(&mysql, "localhost", "eduard", "300974", "testdb", 0, NULL, 0)) {
 		// Если нет возможности установить соединение с БД выводим сообщение об ошибке
 		cout << "Error: can't connect to database " << mysql_error(&mysql) << endl;
 	}
