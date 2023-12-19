@@ -21,10 +21,7 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "detail": "Задача создана отладчиком."
         },
         {
@@ -32,6 +29,9 @@
             "label": "C/C++: g++ сборка активного файла",
             "command": "/usr/bin/g++",
             "args": [
+                "-I/usr/include/mysql",
+                "-L/usr/lib/x86_64-linux-gnu",
+                "-lmysqlclient",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
@@ -44,7 +44,10 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "detail": "Задача создана отладчиком."
         }
     ],
