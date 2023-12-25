@@ -32,7 +32,6 @@ int main() {
 	MYSQL mysql; // Дескриптор соединения c MySql
 	MYSQL_RES* res;
 	MYSQL_ROW row;
-	mysql_init(&mysql);
 	
 
 	string str_tmp;
@@ -45,6 +44,7 @@ int main() {
 	bool connetion_db = false;
 	int notdb = 1049;
 
+	mysql_init(&mysql);
 	if (&mysql == NULL) {
 		// Если дескриптор не получен — выводим сообщение об ошибке
 		cout << "Error: can't create MySQL-descriptor" << endl;
@@ -97,7 +97,7 @@ int main() {
 		mysql_query(&mysql, "CREATE DATABASE chat_test");
 		cout << " Database " << database_name << " created" << endl;
 		mysql_query(&mysql, "use chat_test");
-		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255)))");
+		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255))");
 		mysql_query(&mysql, "INSERT INTO users(id, name) VALUES (default, 'ALL USERS')");
 		cout << " Table created" << endl;
 	}
