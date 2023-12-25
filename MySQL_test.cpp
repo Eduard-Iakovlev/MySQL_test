@@ -79,7 +79,7 @@ int main() {
 			cout << "Error: can't connect to database " << mysql_error(&mysql) << endl;
 			if (mysql_errno(&mysql) == notdb){
 				connetion_db = true;
-				cout << " need for create database\n";
+				cout << " need for create database" << endl;
 				database = true;
 				
 			}
@@ -95,11 +95,11 @@ int main() {
 	if (database == true){
 		mysql_real_connect(&mysql, "localhost", username_db, password_db, NULL, 0, NULL, 0);
 		mysql_query(&mysql, "CREATE DATABASE chat_test");
-		cout << " Database " << database_name << " created\n";
+		cout << " Database " << database_name << " created" << endl;
 		mysql_query(&mysql, "use chat_test");
 		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255)))");
 		mysql_query(&mysql, "INSERT INTO users(id, name) VALUES (default, 'ALL USERS')");
-		cout << " Table created\n";
+		cout << " Table created" << endl;
 	}
 
 	mysql_set_character_set(&mysql, "utf8");
