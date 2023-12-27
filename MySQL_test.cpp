@@ -97,8 +97,8 @@ int main() {
 		mysql_query(&mysql, "CREATE DATABASE chat_test");
 		cout << " Database " << database_name << " created" << endl;
 		mysql_query(&mysql, "use chat_test");
-		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255))");
-		mysql_query(&mysql, "INSERT INTO users(id, name) VALUES (default, 'ALL USERS')");
+		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(255) NOT NULL UNIQUE, name VARCHAR(255) NOT NULL, hash VARCHAR(255))");
+		mysql_query(&mysql, "INSERT INTO users(id, login, name, hash) VALUES (default, 'ALL USERS', 'Общий чат', 'root')");
 		cout << " Table created" << endl;
 	}
 
@@ -115,7 +115,7 @@ int main() {
 			cout << endl;
 		}
 	}
-	else cout << " Ошика mysql номер: " << mysql_error(&mysql);
+	else cout << " Ошибка mysql: " << mysql_error(&mysql);
 
 	// Закрываем соединение с базой данных
 	mysql_close(&mysql);
