@@ -28,6 +28,29 @@ char _getch(){
 		return buf;
 }
 
+/*void insert_to_table(MYSQL& ms, char tbl){
+	MYSQL_STMT *stmt = mysql_stmt_init(&ms);
+	MYSQL_BIND bind[3];
+
+	mysql_stmt_prepare(stmt, "INSERT INT users(id, login, name, hash) VALUES (default, ?, ?, ?)", 512);
+	mysql_stmt_bind_param(stmt, bind);
+
+	char login_value[] = "Login";
+	bind[1].buffer_type = MYSQL_TYPE_STRING;
+	bind[1].buffer = login_value;
+	bind[1].buffer_length = strlen(login_value);
+
+	mysql_stmt_execute(stmt);
+}*/
+
+void insert_to_table(MYSQL&ms, string log, string name, string pass){
+	string str = "INSERT INTO users(id, login, name, hash) VALUES (default, \'" + log + "\', \'" + name + "\', \'" + pass + "\')";
+	if (mysql_query(&ms, str.c_str()) != 0){
+		cout << " error: не добавлен" <<  log << endl;
+	}
+	else cout << " Добавлен: " << log << endl;
+}
+
 int main() {
 	MYSQL mysql; // Дескриптор соединения c MySql
 	MYSQL_RES* res;
@@ -37,6 +60,7 @@ int main() {
 	string str_tmp;
 	char username_db[20]{};
 	char password_db[20]{};
+	
 	const char* database_name = "chat_test";
 	bool database = false;
 	const char* table_users_name = "users";
@@ -93,14 +117,18 @@ int main() {
 	}
 
 	if (database == true){
-		mysql_real_connect(&mysql, "localhost", username_db, password_db, NULL, 0, NULL, 0);
+		if(!mysql_real_connect(&mysql, "localhost", username_db, password_db, NULL, 0, NULL, 0)){
+		cout << "Error: cen't connect to MySQL" << mysql_error(&mysql) << endl;
+		} else cout << "Success!" << endl;
 		mysql_query(&mysql, "CREATE DATABASE chat_test");
 		cout << " Database " << database_name << " created" << endl;
 		mysql_query(&mysql, "use chat_test");
 		mysql_query(&mysql, "CREATE TABLE users(id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(255) NOT NULL UNIQUE, name VARCHAR(255) NOT NULL, hash VARCHAR(255))");
-		mysql_query(&mysql, "INSERT INTO users(id, login, name, hash) VALUES (default, 'ALL USERS', 'Общий чат', 'root')");
+		//mysql_query(&mysql, "INSERT INTO users(id, login, name, hash) VALUES (default, 'ALL USERS', 'Общий чат', 'root')");
+		insert_to_table(mysql, "ALL USERS", "Общий чат", "root");
 		cout << " Table created" << endl;
-	}
+	}else insert_to_table(mysql, "ALL USERS", "Общий чат", "root");
+
 
 	mysql_set_character_set(&mysql, "utf8");
 	cout << " connection characterset " << mysql_character_set_name(&mysql) << endl; 
